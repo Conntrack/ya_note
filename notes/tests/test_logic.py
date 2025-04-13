@@ -5,12 +5,12 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
-from notes.forms import NoteForm
 from notes.models import Note
 from notes.forms import WARNING
 
 
 User = get_user_model()
+
 
 class TestPagesContent(TestCase):
     NOTES_ADD_URL = reverse('notes:add')
@@ -51,7 +51,8 @@ class TestPagesContent(TestCase):
         response = self.client.post(
             self.NOTES_ADD_URL, data=self.new_form_data
         )
-        # Проверяем, что был выполнен редирект на страницу успешного добавления заметки:
+        # Проверяем, что был выполнен редирект на страницу успешного
+        # добавления заметки:
         self.assertRedirects(response, reverse('notes:success'))
         # Считаем общее количество заметок в БД, ожидаем 2 заметки.
         self.assertEqual(Note.objects.count(), 2)

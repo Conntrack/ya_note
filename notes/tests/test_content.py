@@ -8,6 +8,7 @@ from notes.models import Note
 
 User = get_user_model()
 
+
 class TestPagesContent(TestCase):
     NOTES_LIST_URL = reverse('notes:list')
 
@@ -24,7 +25,10 @@ class TestPagesContent(TestCase):
         )
 
     def test_note_in_list_for_author(self):
-        """Отдельная заметка передаётся на страницу со списком заметок в списке object_list в словаре context."""
+        """
+        Отдельная заметка передаётся на страницу со списком заметок в списке
+        object_list в словаре context.
+        """
         self.client.force_login(self.author)
         # Запрашиваем страницу со списком заметок:
         response = self.client.get(self.NOTES_LIST_URL)
@@ -34,7 +38,10 @@ class TestPagesContent(TestCase):
         self.assertIn(self.note, object_list)
 
     def test_note_not_in_list_for_another_user(self):
-        """В список заметок одного пользователя не попадают заметки другого пользователя."""
+        """
+        В список заметок одного пользователя не попадают заметки другого
+        пользователя.
+        """
         self.client.force_login(self.reader)
         response = self.client.get(self.NOTES_LIST_URL)
         object_list = response.context['object_list']

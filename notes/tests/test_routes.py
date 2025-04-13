@@ -9,6 +9,7 @@ from notes.models import Note
 
 User = get_user_model()
 
+
 class TestRoutes(TestCase):
 
     @classmethod
@@ -30,7 +31,10 @@ class TestRoutes(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_pages_availability_for_auth_user(self):
-        """Аутентифицированному пользователю доступны страницы notes/, done/, add/."""
+        """
+        Аутентифицированному пользователю доступны страницы notes/, done/,
+        add/.
+        """
         names = (
             'notes:list', 'notes:add', 'notes:success',
         )
@@ -42,7 +46,10 @@ class TestRoutes(TestCase):
                 self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_pages_availability_for_different_users(self):
-        """Страницы отдельной заметки, удаления и редактирования заметки доступны только автору заметки."""
+        """
+        Страницы отдельной заметки, удаления и редактирования заметки доступны
+        только автору заметки.
+        """
         names = (
             'notes:detail', 'notes:edit', 'notes:delete'
         )
@@ -85,7 +92,10 @@ class TestRoutes(TestCase):
                 self.assertRedirects(response, expected_url)
 
     def test_pages_availability_for_anonymous_user(self):
-        """Страницы регистрации пользователей, входа в учётную запись и выхода из неё доступны всем пользователям."""
+        """
+        Страницы регистрации пользователей, входа в учётную запись и выхода из
+        неё доступны всем пользователям.
+        """
         names = ('users:login', 'users:logout', 'users:signup')
         for name in names:
             with self.subTest(name=name):
